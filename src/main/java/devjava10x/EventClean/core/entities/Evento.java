@@ -9,8 +9,9 @@ public record Evento(
             String nome,
             String descricao,
             String identificador,
-            String local,
+            String localEvento,
             String organizador,
+            Integer capacidade,
             LocalDateTime dataInicio,
             LocalDateTime dataFim,
             TipoEvento tipoEventos
