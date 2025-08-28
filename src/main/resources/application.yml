@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: eventclean
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 0
+    default-schema: public
+    clean-disabled: false
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/eventclean
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
