@@ -2,9 +2,9 @@ package devjava10x.EventClean.core.useCases;
 
 import devjava10x.EventClean.core.entities.Evento;
 
-public interface criarEventoCase {
+public interface CriarEventoUseCase {
 
-     Evento criarEvento(Evento evento);
+     Evento execute(Evento evento);
 
 
 

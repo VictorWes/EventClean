@@ -2,7 +2,6 @@ package devjava10x.EventClean.infrastructure.mapper;
 
 import devjava10x.EventClean.core.entities.Evento;
 import devjava10x.EventClean.infrastructure.dtos.EventoDto;
-import devjava10x.EventClean.infrastructure.persitence.EventoEntity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,7 +24,7 @@ public class EventoDtoMapper {
 
     }
 
-   public Evento toEntity(Evento eventoDto){
+   public Evento toEntity(EventoDto eventoDto){
 
        return new Evento(
                eventoDto.id(),
