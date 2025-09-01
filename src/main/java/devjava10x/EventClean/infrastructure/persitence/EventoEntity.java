@@ -3,9 +3,7 @@ package devjava10x.EventClean.infrastructure.persitence;
 
 import devjava10x.EventClean.core.enums.TipoEvento;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Getter
+@Setter
 public class EventoEntity {
 
     @Id
