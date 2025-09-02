@@ -6,5 +6,5 @@ public class BuscarPorIdEventoUseCaseImpl implements BuscarPorIdEventoUseCase {
     @Override
     public Evento execute(Evento evento) {
         return null;
-    }
+    }//Corrigir para eventogateway.findId
 }
