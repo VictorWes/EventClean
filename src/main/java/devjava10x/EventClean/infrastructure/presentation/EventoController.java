@@ -9,7 +9,9 @@ import devjava10x.EventClean.infrastructure.mapper.EventoDtoMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -27,10 +29,14 @@ public class EventoController {
     }
 
     @PostMapping("criarevento")
-    public EventoDto criarEvento(@RequestBody EventoDto evento) {
+    public ResponseEntity<Map<String, Object>> criarEvento(@RequestBody EventoDto evento) {
         Evento novoEvento = criarEventoUseCase.execute(eventoDtoMapper.toEntity(evento));
 
-        return eventoDtoMapper.toDto(novoEvento);
+        Map<String, Object> response = new HashMap<>();
+        response.put("Message: ", "Evento cadastro com sucesso no nosso banco de dados");
+        response.put("Dados do evento: ", eventoDtoMapper.toDto(novoEvento));
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("todoseventos")

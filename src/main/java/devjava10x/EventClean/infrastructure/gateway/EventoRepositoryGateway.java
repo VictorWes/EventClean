@@ -34,5 +34,12 @@ public class EventoRepositoryGateway implements EventoGateway {
                 .toList();
     }
 
+    @Override
+    public boolean existePorIdentificador(String identificador) {
+        return eventoRepository.findAll()
+                .stream()
+                .anyMatch(evento -> evento.getIdentificador().equals(identificador));
+    }
+
 
 }
