@@ -2,9 +2,11 @@ package devjava10x.EventClean.infrastructure.presentation;
 
 
 import devjava10x.EventClean.core.entities.Evento;
+import devjava10x.EventClean.core.useCases.BuscarPorIdEventoUseCase;
 import devjava10x.EventClean.core.useCases.BuscarTodosEventosUseCase;
 import devjava10x.EventClean.core.useCases.CriarEventoUseCase;
 import devjava10x.EventClean.infrastructure.dtos.EventoDto;
+import devjava10x.EventClean.infrastructure.exception.IdNotFoundException;
 import devjava10x.EventClean.infrastructure.mapper.EventoDtoMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,11 +23,14 @@ public class EventoController {
 
     private final CriarEventoUseCase criarEventoUseCase;
     private final BuscarTodosEventosUseCase buscarTodosEventosUseCase;
+    private final BuscarPorIdEventoUseCase buscarPorIdEventoUseCase;
     private final EventoDtoMapper eventoDtoMapper;
 
-    public EventoController(CriarEventoUseCase criarEventoUseCase, BuscarTodosEventosUseCase buscarTodosEventosUseCase, EventoDtoMapper eventoDtoMapper) {
+
+    public EventoController(CriarEventoUseCase criarEventoUseCase, BuscarTodosEventosUseCase buscarTodosEventosUseCase, BuscarPorIdEventoUseCase buscarPorIdEventoUseCase, EventoDtoMapper eventoDtoMapper) {
         this.criarEventoUseCase = criarEventoUseCase;
         this.buscarTodosEventosUseCase = buscarTodosEventosUseCase;
+        this.buscarPorIdEventoUseCase = buscarPorIdEventoUseCase;
         this.eventoDtoMapper = eventoDtoMapper;
     }
 
@@ -47,5 +53,9 @@ public class EventoController {
                 .collect(Collectors.toList());
     }
 
-
+    @GetMapping("/{id}")
+    public Evento findPorId(@PathVariable Long id) {
+        Optional<Evento> optionalEvento = buscarPorIdEventoUseCase.execute(id);
+        return optionalEvento.orElseThrow(() -> new IdNotFoundException("O ID " + id + " não foi localizado"));
+    }
 }

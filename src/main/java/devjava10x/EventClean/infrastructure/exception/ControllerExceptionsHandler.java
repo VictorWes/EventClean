@@ -20,7 +20,16 @@ public class ControllerExceptionsHandler  {
 
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
 
+    }
 
+    @ExceptionHandler(IdNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleIdNotFoundException(IdNotFoundException exc){
+
+        Map<String, String> response = new HashMap<>();
+        response.put("Error: ", exc.getMessage());
+        response.put("Message: ", "ID informado não localizado, informe um novo ID" );
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 
     }
 
