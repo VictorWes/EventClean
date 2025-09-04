@@ -8,6 +8,10 @@ import devjava10x.EventClean.core.useCases.CriarEventoUseCase;
 import devjava10x.EventClean.infrastructure.dtos.EventoDto;
 import devjava10x.EventClean.infrastructure.exception.IdNotFoundException;
 import devjava10x.EventClean.infrastructure.mapper.EventoDtoMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +38,9 @@ public class EventoController {
         this.eventoDtoMapper = eventoDtoMapper;
     }
 
+    @Operation(summary = "Salva evento", description = "Metodo resposnavel por salvar um novo evento no banco de dados")
+    @ApiResponse(responseCode = "201", description = "Filme Salvo com sucesso",
+    content = @Content(schema = @Schema(implementation = EventoDto.class)))
     @PostMapping("criarevento")
     public ResponseEntity<Map<String, Object>> criarEvento(@RequestBody EventoDto evento) {
         Evento novoEvento = criarEventoUseCase.execute(eventoDtoMapper.toEntity(evento));
@@ -45,6 +52,9 @@ public class EventoController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Busca eventos", description = "Metodo responsavel por buscar todos os eventos no banco de dados")
+    @ApiResponse(responseCode = "200", description = "Eventos listados com sucesso",
+    content = @Content(schema = @Schema(implementation = EventoDto.class)))
     @GetMapping("todoseventos")
     public List<EventoDto> listaEventos() {
         return buscarTodosEventosUseCase.execute()
@@ -53,6 +63,9 @@ public class EventoController {
                 .collect(Collectors.toList());
     }
 
+    @Operation(summary = "Busca evento por id", description = "Metodo responsavel por localizar somente um evento por ID")
+    @ApiResponse(responseCode = "200", description = "Evento localizado com sucesso",
+    content = @Content(schema = @Schema(implementation = EventoDto.class)))
     @GetMapping("/{id}")
     public Evento findPorId(@PathVariable Long id) {
         Optional<Evento> optionalEvento = buscarPorIdEventoUseCase.execute(id);
