@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 
     @Bean
-    public CriarEventoUseCase criarEvento(EventoGateway eventoGateway){
-        return new CriarEventoUseCaseImpl(eventoGateway);
+    public CriarEventoUseCase criarEvento(EventoGateway eventoGateway, GerarIdentificadorUseCase gerarIdentificadorUseCase){
+        return new CriarEventoUseCaseImpl(eventoGateway, gerarIdentificadorUseCase);
     }
 
     @Bean

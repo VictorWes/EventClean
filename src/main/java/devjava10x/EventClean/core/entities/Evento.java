@@ -1,6 +1,7 @@
 package devjava10x.EventClean.core.entities;
 
 import devjava10x.EventClean.core.enums.TipoEvento;
+import jakarta.persistence.Column;
 
 import java.time.LocalDateTime;
 

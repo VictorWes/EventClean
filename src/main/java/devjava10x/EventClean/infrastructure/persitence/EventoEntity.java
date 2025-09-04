@@ -24,6 +24,7 @@ public class EventoEntity {
 
     private String descricao;
 
+    @Column(nullable = false)
     private String identificador;
 
     private String localEvento;
