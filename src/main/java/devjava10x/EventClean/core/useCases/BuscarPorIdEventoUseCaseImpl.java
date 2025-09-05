@@ -2,8 +2,7 @@ package devjava10x.EventClean.core.useCases;
 
 import devjava10x.EventClean.core.entities.Evento;
 import devjava10x.EventClean.core.gateway.EventoGateway;
-
-import java.util.Optional;
+import devjava10x.EventClean.infrastructure.exception.IdNotFoundException;
 
 public class BuscarPorIdEventoUseCaseImpl implements BuscarPorIdEventoUseCase {
 
@@ -14,8 +13,9 @@ public class BuscarPorIdEventoUseCaseImpl implements BuscarPorIdEventoUseCase {
     }
 
     @Override
-    public Optional<Evento> execute(Long id) {
-        return eventoGateway.findPorId(id);
+    public Evento execute(Long id) {
+        return eventoGateway.findPorId(id)
+                .orElseThrow(() -> new IdNotFoundException("id não localizado " + id));
     }
 
 }

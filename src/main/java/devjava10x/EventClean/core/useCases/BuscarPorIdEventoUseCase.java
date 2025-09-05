@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface BuscarPorIdEventoUseCase {
 
-    Optional<Evento> execute(Long id);
+    Evento execute(Long id);
 }

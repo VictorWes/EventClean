@@ -67,8 +67,14 @@ public class EventoController {
     @ApiResponse(responseCode = "200", description = "Evento localizado com sucesso",
     content = @Content(schema = @Schema(implementation = EventoDto.class)))
     @GetMapping("/{id}")
-    public Evento findPorId(@PathVariable Long id) {
-        Optional<Evento> optionalEvento = buscarPorIdEventoUseCase.execute(id);
-        return optionalEvento.orElseThrow(() -> new IdNotFoundException("O ID " + id + " não foi localizado"));
+    public ResponseEntity<Map<String, Object>> findPorId(@PathVariable Long id) {
+
+        Evento findIdDto = buscarPorIdEventoUseCase.execute(id);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("Message: ", "Evento localizado com sucesso no banco de dados");
+        response.put("Dados do evento: ", eventoDtoMapper.toDto(findIdDto));
+
+        return ResponseEntity.ok(response);
     }
 }
